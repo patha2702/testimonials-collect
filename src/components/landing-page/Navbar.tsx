@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SignIn from "@/components/SignIn";
+import Logo from "../Logo";
 
 export default function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
@@ -23,22 +24,7 @@ export default function Navbar({ className }: { className?: string }) {
       )}
     >
       <div className="flex items-center justify-between py-4 px-6">
-        <Link className="flex items-center cursor-pointer" href={"/"}>
-          <Image
-            src="/assets/images/logo.png"
-            alt="TestiCollect Logo"
-            width={50}
-            height={50}
-          />
-          <div>
-            <span className="max-sm:hidden text-2xl font-bold text-indigo-600">
-              TestimonialsCollect
-            </span>
-            <span className="sm:hidden text-2xl font-bold text-indigo-600">
-              Testimonials
-            </span>
-          </div>
-        </Link>
+        <Logo />
         <div className="max-md:hidden">
           <Menu setActive={setActive}>
             <MenuItem setActive={setActive} active={active} item="Features">
