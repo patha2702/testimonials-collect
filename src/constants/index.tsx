@@ -1,7 +1,13 @@
 import { NavLink } from "@/types";
-import { BrickWall, GalleryVertical } from "lucide-react";
+import { BrickWall, GalleryVertical, House } from "lucide-react";
 
 export const navLinks: NavLink[] = [
+  {
+    id: 0,
+    label: "Home",
+    href: "/home",
+    icon: <House />,
+  },
   {
     id: 1,
     label: "Wall of Fame",

@@ -2,6 +2,7 @@
 import MetricsWithIcon from "@/components/dashboard/MetricsWithIcon";
 import ProjectCard from "@/components/dashboard/ProjectCard";
 import Header from "@/components/Header";
+import ProjectModal from "@/components/ProjectModal";
 import { BookCheck, FolderOpenDot, FolderPlus, Gem } from "lucide-react";
 import React from "react";
 
@@ -42,10 +43,7 @@ const Home = () => {
       <section className="flex flex-col gap-2">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-semibold">My Projects</h1>
-          <button className="px-4 py-2 flex justify-center items-center gap-2 font-semibold bg-blue-600 rounded-lg text-white hover:bg-blue-700">
-            <FolderPlus />
-            <span className="text-nowrap">New Project</span>
-          </button>
+          <ProjectModal />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
           <ProjectCard />
