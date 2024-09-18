@@ -1,12 +1,16 @@
-"use client";
 import MetricsWithIcon from "@/components/dashboard/MetricsWithIcon";
 import ProjectCard from "@/components/dashboard/ProjectCard";
-import Header from "@/components/Header";
 import ProjectModal from "@/components/ProjectModal";
+import { getUserSession } from "@/lib/session";
 import { BookCheck, FolderOpenDot, FolderPlus, Gem } from "lucide-react";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const Home = () => {
+const Home = async () => {
+  const user = await getUserSession();
+  if (!user) {
+    redirect("/");
+  }
   return (
     <main className="p-4 max-w-5xl mx-auto flex flex-col gap-4 sm:gap-6">
       <p className="text-2xl font-medium leading-tight">
