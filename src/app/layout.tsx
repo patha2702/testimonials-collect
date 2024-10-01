@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Testimonials Collect",
   description:
-    "Easily gather customer feedback and display it beautifully on your website with our customizable widgets.",
+    "Easily gather customer testimonials and display it beautifully on your website with our customizable widgets.",
 };
 
 export default function RootLayout({

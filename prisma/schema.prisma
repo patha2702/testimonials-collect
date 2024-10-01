@@ -18,8 +18,8 @@ model User {
   email     String    @unique
   name      String?
   avatar    String?
-  planId    Int?
-  plan      Plan?     @relation(fields: [planId], references: [id])
+  planId    Int       @default(1)
+  plan      Plan      @relation(fields: [planId], references: [id])
   projects  Project[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

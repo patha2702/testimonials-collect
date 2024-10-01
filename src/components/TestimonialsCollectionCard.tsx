@@ -1,43 +1,53 @@
 import React from "react";
 import Image from "next/image";
 import { Video, Pencil } from "lucide-react";
+import { QuestionType } from "@/schemas";
 
-interface Question {
-  question: string;
-}
-interface TestimonialsCollectionCardProps {
-  title: string;
+export interface TestimonialsCollectionCardProps {
+  name: string;
+  header: string;
   customMessage: string;
-  questions: Question[];
+  logo: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  questions: QuestionType;
 }
 
-const TestimonialsCollectionCard = () => {
+const TestimonialsCollectionCard = ({
+  header,
+  name,
+  customMessage,
+  logo,
+  questions,
+}: TestimonialsCollectionCardProps) => {
   return (
-    <div className="w-full border border-gray-500 shadow-xl rounded-md p-2">
+    <div className="w-full border border-gray-500 shadow-xl rounded-md p-2 mt-2">
       <div className="flex flex-col w-full p-2">
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 text-center">
           <Image
-            src={"/assets/images/user.jpg"}
-            width={60}
-            height={60}
+            src={logo.url}
+            width={logo.width}
+            height={logo.height}
             className="rounded-full"
-            alt="project logo"
+            alt={name}
           />
-          <h2 className="text-3xl font-bold">Title</h2>
-          <p>Your custom message</p>
+          <h2 className="text-3xl font-bold">{header}</h2>
+          <p>{customMessage}</p>
         </div>
         <div className="py-2 flex flex-col gap-2">
           <span className="text-3xl font-bold ">Questions</span>
           <ul className="list-disc">
-            {[
-              "What did you enjoy the most about our service?",
-              "How has our product made a difference for you?",
-              "Would you recommend us to others? If yes, why?",
-            ].map((question, index) => (
-              <li key={index} className="ml-4">
-                {question}
-              </li>
-            ))}
+            {questions &&
+              Object.entries(questions).map(
+                ([question, answer], index) =>
+                  answer !== "" && (
+                    <li key={index} className="ml-4">
+                      {answer}
+                    </li>
+                  )
+              )}
           </ul>
         </div>
         <div className="flex flex-col gap-2">
