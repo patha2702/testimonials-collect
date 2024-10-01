@@ -28,7 +28,10 @@ const TextTestimonial = async ({
           logoUrl={logoUrl}
           questions={collection?.questions}
         />
-        <TextTestimonialForm collectionId={collection?.id || ""} />
+        <TextTestimonialForm
+          collectionName={collectionId}
+          collectionId={collection?.id || ""}
+        />
       </div>
     </div>
   );
