@@ -18,7 +18,6 @@ const ProjectPage = async ({
       id: collectionId,
     },
     include: {
-      metric: true,
       testimonials: true,
     },
   });
@@ -85,6 +84,7 @@ const ProjectPage = async ({
               rating={testimonial.rating}
               video={testimonial.videoUrl}
               loved={testimonial.loved}
+              testimonialId={testimonial.id}
             />
           ))}
         </section>

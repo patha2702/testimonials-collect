@@ -1,16 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  BrickWall,
   CircleCheck,
+  GalleryVertical,
   Heart,
+  House,
   PanelRightOpen,
-  Text,
   Type,
   Video,
+  X,
 } from "lucide-react";
-import Link from "next/link";
-import { navLinks } from "@/constants";
 import SidebarLink from "./SidebarLink";
+import Link from "next/link";
 
 const Sidebar = () => {
   const [isSidebarHidden, setIsSidebarHidden] = useState(true);
@@ -30,13 +32,13 @@ const Sidebar = () => {
         } transition-all`}
       >
         <ul className="flex flex-col gap-2">
-          {navLinks.map((link) => (
-            <li key={link.id}>
-              <Link href={link.href}>
-                <SidebarLink icon={link.icon} label={link.label} />
-              </Link>
-            </li>
-          ))}
+          <Link href="/home">
+            <SidebarLink icon={<House />} label="Home" />
+          </Link>
+          <WallOfFameModal />
+          <button>
+            <SidebarLink icon={<GalleryVertical />} label="Carousel Slider" />
+          </button>
           <button>
             <SidebarLink icon={<CircleCheck />} label="All" />
           </button>
@@ -56,3 +58,40 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+const WallOfFameModal = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  return (
+    <div>
+      <button onClick={() => setIsModalOpen(true)}>
+        <SidebarLink icon={<BrickWall />} label="Wall of Fame" />
+      </button>
+
+      {isModalOpen && (
+        <div className="z-20 fixed h-dvh inset-0 bg-black bg-opacity-50">
+          <div className="bg-white rounded-xl border border-black p-4 max-w-5xl h-full mx-auto">
+            <div className="relative">
+              <button
+                className="absolute top-0 right-0"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <X />
+              </button>
+              <div>
+                <div className="w-full h-[70vh] border border-black">
+                  <iframe
+                    src="http://localhost:3000/embeds/cm1rg9y2y0003cokjfycj39of/wall-of-fame"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

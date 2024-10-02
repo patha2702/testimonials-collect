@@ -29,17 +29,9 @@ export async function POST(req: NextRequest, res: Response) {
           id: id
         }
       },
-      metric: {
-        create: {
-          totalTestimonials: 0,
-          avgRating: 0,
-          engagementTime: 0
-        }
-      }
     },
     include: {
       questions: true,
-      metric: true
     }
   })
   return new Response(JSON.stringify(project), {

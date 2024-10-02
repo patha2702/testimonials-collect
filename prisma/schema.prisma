@@ -36,7 +36,6 @@ model Project {
   userId        String
   user          User          @relation(fields: [userId], references: [id])
   testimonials  Testimonial[]
-  metric        Metrics?
 }
 
 model Question {
@@ -47,15 +46,16 @@ model Question {
 }
 
 model Testimonial {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   email     String
   text      String?
   videoUrl  String?
   rating    Float
-  loved     Boolean @default(false)
+  loved     Boolean  @default(false)
   projectId String
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project  @relation(fields: [projectId], references: [id])
+  createAt  DateTime @default(now())
 }
 
 model Plan {
@@ -67,13 +67,4 @@ model Plan {
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
   users                     User[]
-}
-
-model Metrics {
-  id                Int     @id @default(autoincrement())
-  totalTestimonials Int     @default(0)
-  avgRating         Float
-  engagementTime    Int
-  projectId         String  @unique
-  project           Project @relation(fields: [projectId], references: [id])
 }
