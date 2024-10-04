@@ -62,6 +62,10 @@ export default Sidebar;
 
 const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  let siteUrl = "";
+  if (window?.location !== undefined) {
+    siteUrl += `${window.location.protocol}://www.${window.location.hostname}`;
+  }
   return (
     <div>
       <button onClick={() => setIsModalOpen(true)}>
@@ -95,7 +99,7 @@ const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
                   </p>
                   <CopyText
                     text={`<iframe
-                    src="${process.env.DOMAIN_NAME}/embeds/${collectionId}/wall-of-fame"
+                    src="${siteUrl}/embeds/${collectionId}/wall-of-fame"
                     style={{
                       width: "100%",
                       height: "100%"
@@ -106,11 +110,11 @@ const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
                 <div className="flex max-sm:flex-col max-sm:items-start items-center gap-2">
                   <span className="font-medium">Preview: </span>
                   <Link
-                    href={`/embeds/${collectionId}/wall-of-fame`}
+                    href={`${siteUrl}/embeds/${collectionId}/wall-of-fame`}
                     target="_blank"
                     className="underline hover:no-underline max-sm:w-28"
                   >
-                    <span>{`${process.env.DOMAIN_NAME}/embeds/${collectionId}/wall-of-fame`}</span>
+                    <span>{`${siteUrl}/embeds/${collectionId}/wall-of-fame`}</span>
                   </Link>
                 </div>
               </div>
