@@ -64,7 +64,7 @@ const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   let siteUrl = "";
   if (window?.location !== undefined) {
-    siteUrl += `${window.location.protocol}://www.${window.location.hostname}`;
+    siteUrl += `${window.location.protocol}//${window.location.hostname}`;
   }
   return (
     <div>
