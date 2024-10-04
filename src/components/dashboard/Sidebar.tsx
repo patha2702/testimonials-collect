@@ -13,8 +13,9 @@ import {
 } from "lucide-react";
 import SidebarLink from "./SidebarLink";
 import Link from "next/link";
+import CopyText from "../CopyText";
 
-const Sidebar = () => {
+const Sidebar = ({ collectionId }: { collectionId: string }) => {
   const [isSidebarHidden, setIsSidebarHidden] = useState(true);
   return (
     <div>
@@ -35,7 +36,7 @@ const Sidebar = () => {
           <Link href="/home">
             <SidebarLink icon={<House />} label="Home" />
           </Link>
-          <WallOfFameModal />
+          <WallOfFameModal collectionId={collectionId} />
           <button>
             <SidebarLink icon={<GalleryVertical />} label="Carousel Slider" />
           </button>
@@ -59,7 +60,7 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const WallOfFameModal = () => {
+const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <div>
@@ -77,8 +78,8 @@ const WallOfFameModal = () => {
               >
                 <X />
               </button>
-              <div>
-                <div className="w-full h-[70vh] border border-black">
+              <div className="flex flex-col gap-2">
+                <div className="w-full h-[70vh] max-sm:h-[50vh] border border-gray-400">
                   <iframe
                     src="http://localhost:3000/embeds/cm1rg9y2y0003cokjfycj39of/wall-of-fame"
                     style={{
@@ -86,6 +87,31 @@ const WallOfFameModal = () => {
                       height: "100%",
                     }}
                   ></iframe>
+                </div>
+                <div>
+                  <p className="text-lg font-medium leading-none py-2">
+                    Add the following code to your website to display your
+                    testimonials
+                  </p>
+                  <CopyText
+                    text={`<iframe
+                    src="http://localhost:3000/embeds/${collectionId}/wall-of-fame"
+                    style={{
+                      width: "100%",
+                      height: "100%"
+                    }}
+                  ></iframe>`}
+                  />
+                </div>
+                <div className="flex max-sm:flex-col max-sm:items-start items-center gap-2">
+                  <span className="font-medium">Preview: </span>
+                  <Link
+                    href={`http://localhost:3000/embeds/${collectionId}/wall-of-fame`}
+                    target="_blank"
+                    className="underline hover:no-underline max-sm:w-28"
+                  >
+                    <span>{`http://localhost:3000/embeds/${collectionId}/wall-of-fame`}</span>
+                  </Link>
                 </div>
               </div>
             </div>

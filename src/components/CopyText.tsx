@@ -12,9 +12,9 @@ const CopyText = ({ text }: { text: string }) => {
     }, 2000);
   };
   return (
-    <div className="p-2 bg-gray-300 rounded-sm font-medium flex justify-start items-center gap-2">
-      <span>{text}</span>
-      <div className="flex items-center">
+    <div className="p-2 relative bg-slate-600 rounded-sm text-white font-medium">
+      <p className="w-full text-wrap mr-8">{text}</p>
+      <div className="flex items-center absolute top-2 right-2">
         {textCopied ? (
           <CopyCheck />
         ) : (

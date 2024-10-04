@@ -72,7 +72,7 @@ const ProjectPage = async ({
       </div>
       <section className="grid sm:grid-cols-[30%_70%] py-2 sm:py-4">
         <section className="p-2">
-          <Sidebar />
+          <Sidebar collectionId={collectionId} />
         </section>
         <section className="p-2 flex flex-col gap-2">
           {collection?.testimonials.map((testimonial, index) => (
