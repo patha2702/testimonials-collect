@@ -40,7 +40,7 @@ const Sidebar = ({ collectionId }: { collectionId: string }) => {
           <button>
             <SidebarLink icon={<GalleryVertical />} label="Carousel Slider" />
           </button>
-          <button>
+          {/* <button>
             <SidebarLink icon={<CircleCheck />} label="All" />
           </button>
           <button>
@@ -51,7 +51,7 @@ const Sidebar = ({ collectionId }: { collectionId: string }) => {
           </button>
           <button>
             <SidebarLink icon={<Heart />} label="Loved" />
-          </button>
+          </button> */}
         </ul>
       </nav>
     </div>

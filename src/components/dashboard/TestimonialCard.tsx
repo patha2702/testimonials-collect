@@ -21,7 +21,7 @@ const TestimonialCard = ({
   testimonialId,
 }: TestimonialCardProps) => {
   const [isLoved, setIsLoved] = useState(loved);
-
+  console.log(video);
   const handleLovedTestimonials = async () => {
     try {
       const res = await fetch("/api/lovedtestimonials", {
@@ -45,7 +45,7 @@ const TestimonialCard = ({
   }, [isLoved]);
 
   return (
-    <div className="z-1 relative cursor-pointer p-2 flex flex-col gap-1 rounded-lg border border-gray-300 bg-white/20 hover:shadow-xl transition-all">
+    <div className="z-1 relative cursor-pointer p-2 flex flex-col gap-2 rounded-lg border border-gray-300 bg-white/20 hover:shadow-xl transition-all">
       <Heart
         height={40}
         width={40}
@@ -58,8 +58,36 @@ const TestimonialCard = ({
           });
         }}
       />
-      <span className="text-lg font-semibold">{name}</span>
-      <p className="leading-tight text-sm">{text}</p>
+      <div className="flex items-center gap-2">
+        <div className="rounded-full w-8 h-8 bg-gray-300 text-gray-700 dark:text-gray-700 dark:bg-gray-700 flex justify-center items-center">
+          {name
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase())
+            .join("")}
+        </div>
+        <h3 className="text-lg font-semibold text-gray-700 dark:text-white">
+          {name}
+        </h3>
+      </div>
+      {text ? (
+        <p className="leading-tight">{text}</p>
+      ) : (
+        <video
+          style={{
+            width: "200px",
+            height: "100px",
+            borderRadius: "5px",
+            borderColor: "black",
+            objectFit: "fill",
+          }}
+          controls
+          playsInline
+        >
+          <source src={video || ""} />
+          Your browser doesnt support video player
+        </video>
+      )}
+
       <div className="flex justify-between items-center">
         <span className=" text-gray-700">{email}</span>
         <div className="flex justify-start items-center gap-2">

@@ -9,6 +9,8 @@ const Test = () => {
           width: "100%",
           height: "100%",
         }}
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
       ></iframe>
     </div>
   );
