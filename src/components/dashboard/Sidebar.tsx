@@ -81,7 +81,7 @@ const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
               <div className="flex flex-col gap-2">
                 <div className="w-full h-[70vh] max-sm:h-[50vh] border border-gray-400">
                   <iframe
-                    src="http://localhost:3000/embeds/cm1rg9y2y0003cokjfycj39of/wall-of-fame"
+                    src={`/embeds/${collectionId}/wall-of-fame`}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -95,7 +95,7 @@ const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
                   </p>
                   <CopyText
                     text={`<iframe
-                    src="http://localhost:3000/embeds/${collectionId}/wall-of-fame"
+                    src="${process.env.DOMAIN_NAME}/embeds/${collectionId}/wall-of-fame"
                     style={{
                       width: "100%",
                       height: "100%"
@@ -106,11 +106,11 @@ const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
                 <div className="flex max-sm:flex-col max-sm:items-start items-center gap-2">
                   <span className="font-medium">Preview: </span>
                   <Link
-                    href={`http://localhost:3000/embeds/${collectionId}/wall-of-fame`}
+                    href={`/embeds/${collectionId}/wall-of-fame`}
                     target="_blank"
                     className="underline hover:no-underline max-sm:w-28"
                   >
-                    <span>{`http://localhost:3000/embeds/${collectionId}/wall-of-fame`}</span>
+                    <span>{`${process.env.DOMAIN_NAME}/embeds/${collectionId}/wall-of-fame`}</span>
                   </Link>
                 </div>
               </div>
