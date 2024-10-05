@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <Link className="flex items-center cursor-pointer" href={"/"}>
       <Image
-        src="/assets/images/logo.png"
+        src={"/assets/images/testimonials-collect.png"}
         alt="TestiCollect Logo"
         width={50}
         height={50}

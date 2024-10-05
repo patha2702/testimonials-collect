@@ -179,7 +179,11 @@ const ProjectForm = () => {
           questions={watchedFields.questions}
           header={watchedFields.header || "Hey can you review my site"}
           name={watchedFields.name || "Testimonials collect"}
-          logo={{ url: "/assets/images/logo.png", height: 60, width: 60 }}
+          logo={{
+            url: "/assets/images/testimonials-collect.png",
+            height: 60,
+            width: 60,
+          }}
         />
       </div>
     </div>
