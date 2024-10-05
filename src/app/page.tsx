@@ -8,7 +8,7 @@ import {
   BookType,
   BrickWall,
   Facebook,
-  FolderPlus,
+  FolderOpenDot,
   Instagram,
   Linkedin,
   Quote,
@@ -102,7 +102,7 @@ const Banner = () => {
     <div className="max-md:hidden w-full mt-8 shadow-xl shadow-blue-600/40 flex justify-between items-center p-4 rounded-xl">
       <div className="flex justify-start items-center gap-2">
         <div className="w-16 h-16 border border-blue-600/40 rounded-lg flex justify-end items-center">
-          <FolderPlus
+          <FolderOpenDot
             width={40}
             height={40}
             strokeWidth={2}
