@@ -2,7 +2,15 @@ import MetricsWithIcon from "@/components/dashboard/MetricsWithIcon";
 import Sidebar from "@/components/dashboard/Sidebar";
 import TestimonialCard from "@/components/dashboard/TestimonialCard";
 import prisma from "@/lib/db";
-import { BookCheck, Copy, CopyCheck, Star, Type, Video } from "lucide-react";
+import {
+  BookCheck,
+  Copy,
+  CopyCheck,
+  Eye,
+  Star,
+  Type,
+  Video,
+} from "lucide-react";
 import React from "react";
 import Image from "next/image";
 import CopyText from "@/components/CopyText";
@@ -27,7 +35,9 @@ const ProjectPage = async ({
   collection?.testimonials.map((testimonial) => {
     ratingSum += testimonial.rating;
   });
-  const avgRating = ratingSum / collection?.testimonials.length!;
+  const avgRating = parseFloat(
+    (ratingSum / collection?.testimonials.length!).toFixed(1)
+  );
   return (
     <main className="p-4 max-w-5xl mx-auto flex flex-col gap-4">
       <div className="flex flex-col items-center">
@@ -69,6 +79,11 @@ const ProjectPage = async ({
           label="Avg Rating"
           value={avgRating || "No data"}
         />
+        <MetricsWithIcon
+          icon={<Eye width={20} height={20} className="text-blue-600" />}
+          label="Watch Time"
+          value={collection?.watchTime || "No data"}
+        />
       </div>
       <section className="grid sm:grid-cols-[30%_70%] py-2 sm:py-4">
         <section className="p-2">
@@ -85,6 +100,7 @@ const ProjectPage = async ({
               video={testimonial.videoUrl}
               loved={testimonial.loved}
               testimonialId={testimonial.id}
+              postedAt={testimonial.createAt}
             />
           ))}
         </section>

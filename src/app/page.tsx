@@ -7,6 +7,7 @@ import SignIn from "@/components/SignIn";
 import {
   BookType,
   BrickWall,
+  Check,
   Facebook,
   FolderOpenDot,
   Instagram,
@@ -24,6 +25,8 @@ export default async function Home() {
     <main className="min-h-screen w-full relative">
       <Header />
       <Hero />
+      <Features />
+      <Pricing />
       <Footer />
     </main>
   );
@@ -31,14 +34,14 @@ export default async function Home() {
 
 const Header = () => {
   return (
-    <header className="fixed top-0 w-full border-b border-black/20 bg-white">
+    <header className="fixed top-0 w-full border-b border-black/20 bg-white/50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto py-2 flex justify-between items-center">
         <Logo />
         <nav className="flex justify-start items-center gap-6 text-lg max-sm:hidden">
-          <Link href={"/examples"} className="font-medium hover:text-gray-700">
-            Examples
+          <Link href={"#features"} className="font-medium hover:text-gray-700">
+            Features
           </Link>
-          <Link href={"/pricing"} className="font-medium hover:text-gray-700">
+          <Link href={"#pricing"} className="font-medium hover:text-gray-700">
             Pricing
           </Link>
         </nav>
@@ -67,7 +70,7 @@ const Hero = () => {
           <br /> No technical skills required.
         </p>
         <div className="my-2">
-          <SignIn>Collect you Testimonials</SignIn>
+          <SignIn>Collect you Testimonials for Free</SignIn>
         </div>
         <div className="mt-4">
           <span className="text-xl font-medium flex justify-center items-center gap-2">
@@ -269,5 +272,175 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+  );
+};
+
+const Features = () => {
+  return (
+    <section
+      id="features"
+      className="max-w-7xl my-2 sm:my-4 mx-auto p-3 bg-slate-50 rounded-lg"
+    >
+      <h2 className="text-4xl font-semibold text-center mb-4 text-blue-600">
+        Features
+      </h2>
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-8 max-sm:gap-4 py-4">
+        <FeatureCard
+          title="Collection Page"
+          description="A dedicated landing page for each collection, which you can easily share to gather testimonials."
+          image={{
+            src: "/assets/images/collection-page.png",
+            alt: "collection page",
+          }}
+        />
+        <FeatureCard
+          title="Dashboard"
+          description="Effortlessly manage all your testimonials minimalistic dashboard designed for simplicity and control."
+          image={{
+            src: "/assets/images/dashboard.png",
+            alt: "dashboard",
+          }}
+        />
+        <FeatureCard
+          title="Wall of fame"
+          description="Simply paste the embed code, and let the testimonials shine on your site effortlessly"
+          image={{
+            src: "/assets/images/wall-of-fame-embed.png",
+            alt: "wall of fame",
+          }}
+        />
+        <FeatureCard
+          title="Insightful Metrics"
+          description="Track key metrics like average rating and attention time to see how your testimonials boost engagement and drive conversions."
+          image={{
+            src: "/assets/images/collection-page.png",
+            alt: "collection page",
+          }}
+        />
+      </div>
+    </section>
+  );
+};
+
+interface FeatureCardProps {
+  title: string;
+  description: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+}
+const FeatureCard = ({ title, description, image }: FeatureCardProps) => {
+  return (
+    <div className="rounded-lg grid grid-cols-[50%_50%] max-sm:grid-cols-1 gap-4 max-sm:gap-2 shadow-sm shadow-blue-600 p-2">
+      <div>
+        <Image
+          src={image.src}
+          width={400}
+          height={100}
+          className="border-4 aspect-video border-black/60 rounded-2xl"
+          alt={image.alt}
+        />
+      </div>
+      <div className="flex flex-col justify-center gap-4 max-sm:gap-2">
+        <h3 className="text-3xl font-semibold">{title}</h3>
+        <p className="pr-4">{description}</p>
+      </div>
+    </div>
+  );
+};
+
+interface Feature {
+  feature: string;
+}
+export interface PricingCardProps {
+  title: string;
+  price: number;
+  features: Feature[];
+}
+
+const pricingList: PricingCardProps[] = [
+  {
+    title: "Free",
+    price: 0,
+    features: [
+      {
+        feature: "1 Collection",
+      },
+      {
+        feature: "3 Custom questions",
+      },
+      {
+        feature: "Collection Page",
+      },
+      {
+        feature: "Metrics",
+      },
+      {
+        feature: "Unlimited testimonials",
+      },
+    ],
+  },
+  {
+    title: "Pro",
+    price: 19,
+    features: [
+      {
+        feature: "One time payment",
+      },
+      {
+        feature: "Unlimited Collections",
+      },
+      {
+        feature: "5 Custom questions",
+      },
+      {
+        feature: "Collection Page",
+      },
+      {
+        feature: "Metrics",
+      },
+      {
+        feature: "Unlimited testimonials",
+      },
+    ],
+  },
+];
+
+const Pricing = () => {
+  return (
+    <section id="pricing" className="max-w-7xl mx-auto p-3 bg-slate-50">
+      <h2 className="text-4xl font-semibold text-center mb-4 text-blue-600">
+        Pricing
+      </h2>
+      <div className="mt-4 py-4 flex justify-center gap-4 max-sm:flex-col">
+        {pricingList.map((pricing, index) => (
+          <PricingCard {...pricing} key={index} />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const PricingCard = ({ title, price, features }: PricingCardProps) => {
+  return (
+    <div className="px-4 py-6 flex flex-col gap-2 w-96 max-sm:w-full rounded-xl border border-black/40 bg-white shadow-md">
+      <div className="flex flex-col gap-2 border-b pb-2 border-b-black/40">
+        <h3 className="text-xl font-medium text-black/80">{title}</h3>
+        <div className="text-5xl font-bold text-black/90">
+          <span>${price}</span>
+        </div>
+      </div>
+      <div>
+        <ul>
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-center gap-2">
+              <Check className="text-green-600" />
+              <span>{feature.feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };

@@ -36,10 +36,21 @@ const Sidebar = ({ collectionId }: { collectionId: string }) => {
           <Link href="/home">
             <SidebarLink icon={<House />} label="Home" />
           </Link>
-          <WallOfFameModal collectionId={collectionId} />
-          <button>
-            <SidebarLink icon={<GalleryVertical />} label="Carousel Slider" />
-          </button>
+          <WallOfFameModal
+            collectionId={collectionId}
+            type="wall-of-fame"
+            actionButton={
+              <SidebarLink icon={<BrickWall />} label="Wall of Fame" />
+            }
+          />
+          <WallOfFameModal
+            collectionId={collectionId}
+            type="carousel-slider"
+            actionButton={
+              <SidebarLink icon={<GalleryVertical />} label="Carousel Slider" />
+            }
+          />
+
           {/* <button>
             <SidebarLink icon={<CircleCheck />} label="All" />
           </button>
@@ -60,21 +71,92 @@ const Sidebar = ({ collectionId }: { collectionId: string }) => {
 
 export default Sidebar;
 
-const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
+interface WallOfFameModalProps {
+  collectionId: string;
+  type: string;
+  actionButton: React.ReactNode;
+}
+const WallOfFameModal = ({
+  collectionId,
+  type,
+  actionButton,
+}: WallOfFameModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const title = type === "wall-of-fame" ? "Wall of Fame" : "Carousel Slider";
   let siteUrl = "";
   if (window?.location !== undefined) {
     siteUrl += `${window.location.protocol}//${window.location.hostname}`;
   }
+
+  const wallOfFameEmbedCode = `
+      <iframe
+        id="testimonials-widget"
+        src="${siteUrl}/embeds/${collectionId}/wall-of-fame"
+        width="100%"
+        height="500px"
+      ></iframe>
+      <script>
+      let iframe = document.getElementById("testimonials-widget");
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "http://localhost:3000") return;
+    if (iframe && event.data.type === "RESIZE_IFRAME") {
+      iframe.style.height = event.data.height + "px";
+    }
+    if (iframe && event.data.type === "TESTIMONIAL_TIME_SPENT") {
+      const watchTime = event.data.timeSpent / 1000
+      fetch("${siteUrl}/api/watch-time", {
+        method: "PUT",
+        data: JSON.stringify({
+          id: ${collectionId},
+          time: watchTime
+        })
+      }).then(res => {
+        if (!res.ok) {
+          console.error("Failed to update watch time")
+        }
+      })
+    }
+  });
+      </script>
+  
+  `;
+
+  const carouselEmbedCode = `
+    <iframe
+        id="testimonials-widget"
+        src="${siteUrl}/embeds/${collectionId}/carousel-slider"
+        width="100%"
+        height="900px"
+      ></iframe>
+      <script>
+      let iframe = document.getElementById("testimonials-widget");
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "http://localhost:3000") return;
+    if (iframe && event.data.type === "TESTIMONIAL_TIME_SPENT") {
+      const watchTime = event.data.timeSpent / 1000
+      fetch("${siteUrl}/api/watch-time", {
+        method: "PUT",
+        data: JSON.stringify({
+          id: ${collectionId},
+          time: watchTime
+        })
+      }).then(res => {
+        if (!res.ok) {
+          console.error("Failed to update watch time")
+        }
+      })
+    }
+  });
+      </script>
+  `;
+
   return (
     <div>
-      <button onClick={() => setIsModalOpen(true)}>
-        <SidebarLink icon={<BrickWall />} label="Wall of Fame" />
-      </button>
+      <button onClick={() => setIsModalOpen(true)}>{actionButton}</button>
 
       {isModalOpen && (
         <div className="z-20 fixed h-dvh inset-0 bg-black bg-opacity-50">
-          <div className="bg-white rounded-xl border border-black p-4 max-w-5xl h-full mx-auto">
+          <div className="bg-white h-screen overflow-y-scroll rounded-xl border border-black p-4 max-w-5xl scrollbar-hide mx-auto">
             <div className="relative">
               <button
                 className="absolute top-0 right-0"
@@ -82,41 +164,50 @@ const WallOfFameModal = ({ collectionId }: { collectionId: string }) => {
               >
                 <X />
               </button>
+              <h1 className="text-2xl font-bold text-center py-2">{title}</h1>
               <div className="flex flex-col gap-2">
                 <div className="w-full h-[70vh] max-sm:h-[50vh] border border-gray-400">
-                  <iframe
-                    src={`/embeds/${collectionId}/wall-of-fame`}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></iframe>
-                </div>
-                <div>
-                  <p className="text-lg font-medium leading-none py-2">
-                    Add the following code to your website to display your
-                    testimonials
-                  </p>
-                  <CopyText
-                    text={`<iframe
-                    src="${siteUrl}/embeds/${collectionId}/wall-of-fame"
-                    style={{
-                      width: "100%",
-                      height: "100%"
-                    }}
-                  ></iframe>`}
-                  />
+                  {type === "wall-of-fame" ? (
+                    <iframe
+                      src={`/embeds/${collectionId}/wall-of-fame`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    ></iframe>
+                  ) : (
+                    <iframe
+                      src={`/embeds/${collectionId}/carousel-slider`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    ></iframe>
+                  )}
                 </div>
                 <div className="flex max-sm:flex-col max-sm:items-start items-center gap-2">
                   <span className="font-medium">Preview: </span>
                   <Link
-                    href={`${siteUrl}/embeds/${collectionId}/wall-of-fame`}
+                    href={`${siteUrl}/embeds/${collectionId}/${type}`}
                     target="_blank"
                     className="underline hover:no-underline max-sm:w-28"
                   >
-                    <span>{`${siteUrl}/embeds/${collectionId}/wall-of-fame`}</span>
+                    <span>{`${siteUrl}/embeds/${collectionId}/${type}`}</span>
                   </Link>
                 </div>
+                <div>
+                  <p className="text-lg font-medium leading-none py-2">
+                    Add the following code to your website to display your
+                    {` ${title.toLowerCase()}`}
+                  </p>
+                </div>
+                <CopyText
+                  text={
+                    type === "wall-of-fame"
+                      ? wallOfFameEmbedCode
+                      : carouselEmbedCode
+                  }
+                />
               </div>
             </div>
           </div>

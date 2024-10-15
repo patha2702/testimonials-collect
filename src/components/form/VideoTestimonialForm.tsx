@@ -4,7 +4,7 @@ import {
   VideoTestimonialFormValues,
 } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, Star, Upload } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Label from "./Label";
@@ -23,10 +23,12 @@ const VideoTestimonialForm = ({
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<VideoTestimonialFormValues>({
     resolver: zodResolver(videoTestimonialFormSchema),
   });
+  const rating = watch("rating");
   const handleTestimonialSubmission = async (
     data: VideoTestimonialFormValues
   ) => {
@@ -80,24 +82,48 @@ const VideoTestimonialForm = ({
           />
           <p className="text-red-600 text-sm">{errors.email?.message}</p>
         </fieldset>
+        <button
+          className="rounded-xl sm:mt-4 flex justify-center items-center gap-2 py-2 bg-red-600 hover:bg-red-700 text-xl text-white font-semibold"
+          onClick={() => {
+            window.open("https://youtube.com/upload", "_black");
+          }}
+        >
+          <Upload className="mr-2 h-4 w-4" />
+          Open YouTube to upload
+        </button>
 
         <fieldset className="flex flex-col">
-          <Label label={"Testimonial Video Url"} required={true} />
+          <Label label={"YouTube video link"} required={true} />
           <textarea
-            placeholder={"Share your google drive video link"}
+            placeholder={"Paste the uploaded youtube video link"}
             {...register("video")}
             className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
           />
           <p className="text-red-600 text-sm">{errors.video?.message}</p>
         </fieldset>
-        <fieldset className="flex flex-col">
+        <fieldset className="flex items-center gap-2">
           <Label label="Rating" required={true} />
-          <input
-            type="text"
-            {...register("rating")}
-            placeholder="5.0"
-            className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
-          />
+          <div className="flex justify-start items-center">
+            {[...Array(5)].map((star, index) => {
+              return (
+                <label key={index}>
+                  <input
+                    type="radio"
+                    className="hidden"
+                    value={index + 1}
+                    {...register("rating")}
+                  />
+                  <Star
+                    key={index}
+                    size={30}
+                    strokeWidth={0.5}
+                    fill={index + 1 <= rating ? "gold" : "white"}
+                    className="cursor-pointer"
+                  />
+                </label>
+              );
+            })}
+          </div>
           <p className="text-red-600 text-sm">{errors.rating?.message}</p>
         </fieldset>
       </div>

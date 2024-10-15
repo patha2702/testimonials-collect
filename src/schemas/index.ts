@@ -9,17 +9,19 @@ const questionSchema = z.object({
 })
 
 export const projectFormSchema = z.object({
-  name: z.string().min(3).max(20),
-  logo: z.instanceof(File).refine(file => file.type.startsWith("image/"), {
+  name: z.string().min(3, {
+    message:"Collection name should be atleast 3 chars"
+  }).max(20),
+  logo: z.instanceof(File, {
+    message: "Logo is required"
+  }).refine(file => file.type.startsWith("image/"), {
     message: "Logo must be an image"
   }),
   header: z.string().min(3, {
-    message: "title should be atleast 3 characters"
+    message: "Header should be atleast 3 characters"
   }),
   customMessage: z.string().min(5, {
-    message: "Min 3 char"
-  }).max(100, {
-    message: "Message limit 100 char"
+    message: "Cumstom message should be atleast 10 chars"
   }),
   questions: questionSchema
 })
@@ -43,6 +45,8 @@ export const textTestimonialFormSchema = testimonialFormSchema.extend({
 export const videoTestimonialFormSchema = testimonialFormSchema.extend({
   video: z.string().startsWith("https", {
     message: "Enter a valid link"
+  }).includes("youtube.com", {
+    message: "Provide a valid uploaded Youtube url"
   }),
 
 })

@@ -36,13 +36,14 @@ model Project {
   userId        String
   user          User          @relation(fields: [userId], references: [id])
   testimonials  Testimonial[]
+  watchTime     Int           @default(0)
 }
 
 model Question {
   id        Int     @id @default(autoincrement())
   question  String
   projectId String
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Testimonial {
@@ -54,7 +55,7 @@ model Testimonial {
   rating    Float
   loved     Boolean  @default(false)
   projectId String
-  project   Project  @relation(fields: [projectId], references: [id])
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   createAt  DateTime @default(now())
 }
 

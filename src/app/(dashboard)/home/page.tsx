@@ -80,16 +80,17 @@ const Home = async () => {
               });
               const avgRating =
                 totalTestimonials > 0
-                  ? ratingSum / totalTestimonials
+                  ? (ratingSum / totalTestimonials).toFixed(1)
                   : "No data";
               return (
-                <Link href={`/collections/${project.id}`} key={project.id}>
-                  <ProjectCard
-                    name={project.name}
-                    avgRating={avgRating || 0}
-                    totalTestimonials={totalTestimonials || 0}
-                  />
-                </Link>
+                <ProjectCard
+                  key={project.id}
+                  name={project.name}
+                  avgRating={avgRating || 0}
+                  totalTestimonials={totalTestimonials || 0}
+                  projectLogo={project.logo}
+                  id={project.id}
+                />
               );
             })
           ) : (

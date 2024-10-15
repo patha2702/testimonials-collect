@@ -101,6 +101,9 @@ const ProjectForm = () => {
               {...register("name")}
               className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
             />
+            <p className="text-sm text-red-500">
+              {formState.errors.name && formState.errors.name.message}
+            </p>
           </fieldset>
 
           <fieldset className="flex flex-col">
@@ -116,6 +119,9 @@ const ProjectForm = () => {
                 )}
               />
             </div>
+            <p className="text-sm text-red-500">
+              {formState.errors.logo && formState.errors.logo.message}
+            </p>
           </fieldset>
           <fieldset className="flex flex-col">
             <Label label={"Header"} required={true} />
@@ -125,16 +131,25 @@ const ProjectForm = () => {
               {...register("header")}
               className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
             />
+            <p className="text-sm text-red-500">
+              {formState.errors.header && formState.errors.header.message}
+            </p>
           </fieldset>
 
           <fieldset className="flex flex-col">
             <Label label={"Custom Message"} required={true} />
             <input
               type={"text"}
-              placeholder={"Custom message for your audience"}
+              placeholder={
+                "Could you take a moment to share your experience with us?"
+              }
               {...register("customMessage")}
               className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
             />
+            <p className="text-sm text-red-500">
+              {formState.errors.customMessage &&
+                formState.errors.customMessage.message}
+            </p>
           </fieldset>
           <fieldset className="flex flex-col">
             <Label label="Questions" required={false} />
@@ -142,13 +157,13 @@ const ProjectForm = () => {
               <input
                 type="text"
                 {...register("questions.q1")}
-                placeholder="Question 1"
+                placeholder="What specific feature of our product/ service did you find most helpful, and why?"
                 className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
               />
               <input
                 type="text"
                 {...register("questions.q2")}
-                placeholder="Question 2"
+                placeholder="How has using our product/service impacted your website or business so far?"
                 className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
               />
               <input

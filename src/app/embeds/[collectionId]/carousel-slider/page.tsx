@@ -40,7 +40,7 @@ const WallOfFame = () => {
     );
   }
 
-  return <Widget type="wall-of-fame" testimonials={testimonials} />;
+  return <Widget type="carousel-slider" testimonials={testimonials} />;
 };
 
 export default WallOfFame;

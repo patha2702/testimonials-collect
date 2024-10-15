@@ -4,7 +4,7 @@ import {
   TextTestimonialFormValues,
 } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, Star } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Label from "./Label";
@@ -23,10 +23,15 @@ const TextTestimonialForm = ({
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<TextTestimonialFormValues>({
     resolver: zodResolver(textTestimonialFormSchema),
+    defaultValues: {
+      rating: 0,
+    },
   });
+  const rating = watch("rating");
   const handleTestimonialSubmission = async (
     data: TextTestimonialFormValues
   ) => {
@@ -90,14 +95,29 @@ const TextTestimonialForm = ({
           />
           <p className="text-red-600 text-sm">{errors.text?.message}</p>
         </fieldset>
-        <fieldset className="flex flex-col">
+        <fieldset className="flex items-center gap-2">
           <Label label="Rating" required={true} />
-          <input
-            type="text"
-            {...register("rating")}
-            placeholder="5.0"
-            className="p-2 rounded-lg border border-blue-600 focus:ring-blue-600 focus:ring-2 focus:outline-none"
-          />
+          <div className="flex justify-start items-center">
+            {[...Array(5)].map((star, index) => {
+              return (
+                <label key={index}>
+                  <input
+                    type="radio"
+                    className="hidden"
+                    value={index + 1}
+                    {...register("rating")}
+                  />
+                  <Star
+                    key={index}
+                    size={30}
+                    strokeWidth={0.5}
+                    fill={index + 1 <= rating ? "gold" : "white"}
+                    className="cursor-pointer"
+                  />
+                </label>
+              );
+            })}
+          </div>
           <p className="text-red-600 text-sm">{errors.rating?.message}</p>
         </fieldset>
       </div>

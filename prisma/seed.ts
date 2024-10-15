@@ -6,18 +6,18 @@ async function main() {
       name: 'Free',
       price: 0,
       maxProjects: 1,
-      maxTestimonialsPerProject: 20,
-    },
-    {
-      name: 'Basic',
-      price: 999, 
-      maxProjects: 3,
       maxTestimonialsPerProject: 10000,
     },
     {
       name: 'Pro',
-      price: 2999, 
-      maxProjects: 10,
+      price: 2900, 
+      maxProjects: 3,
+      maxTestimonialsPerProject: 10000,
+    },
+    {
+      name: 'Pro Max',
+      price: 4999, 
+      maxProjects: 100,
       maxTestimonialsPerProject: 10000,
     },
   ]

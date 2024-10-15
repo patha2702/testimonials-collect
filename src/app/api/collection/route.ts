@@ -47,3 +47,30 @@ export async function POST(req: NextRequest, res: Response) {
   }
   
 }
+
+export async function DELETE(req: NextRequest) {
+  const { id } = await req.json()
+  console.log(id)
+  try {
+    await prisma.project.delete({
+      where: {
+        id: id
+      },
+      include: {
+        questions: true,
+        testimonials: true
+      }
+    })
+    return Response.json({
+      message: "Collection deleted successfully "
+    })
+  } catch (err: any) {
+    console.error(err)
+    return Response.json({
+      message: "Failed to delete collection. Please try again"
+    }, {
+     status: 500
+    })
+  }
+}
+

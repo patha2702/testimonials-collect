@@ -53,9 +53,7 @@ const TestimonialsCollectionCard = ({
         <div className="flex flex-col gap-2">
           <button className="px-4 py-2 w-full rounded-lg  bg-blue-600 hover:bg-blue-700 flex justify-center items-center gap-2">
             <Video className="text-white" />
-            <span className="text-white text-xl font-medium">
-              Record a Video
-            </span>
+            <span className="text-white text-xl font-medium">Send a Video</span>
           </button>
           <button className="px-4 py-2 w-full rounded-lg  bg-slate-800 hover:bg-slate-800 flex justify-center items-center gap-2">
             <Pencil className="text-white" />
