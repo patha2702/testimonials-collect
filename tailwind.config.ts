@@ -23,6 +23,10 @@ const config = {
       },
     },
     extend: {
+      animationPlayState: {
+        paused: "paused",
+        running: "running"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -64,6 +68,10 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "slide": {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -76,10 +84,21 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "slide": "slide 20s ease-in-out infinite"
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors],
+  plugins: [require("tailwindcss-animate"), addVariablesForColors, function({ addUtilities }: { addUtilities: (utilities: Record<string, any>, variants?: string[]) => void }) {
+    const newUtilities = {
+      '.animation-paused': {
+        'animation-play-state': 'paused',
+      },
+      '.animation-running': {
+        'animation-play-state': 'running',
+      },
+    };
+    addUtilities(newUtilities, ['responsive', 'hover']);
+  },],
 } satisfies Config
 
 function addVariablesForColors({ addBase, theme }: any) {

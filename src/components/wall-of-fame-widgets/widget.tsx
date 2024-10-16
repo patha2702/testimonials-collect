@@ -76,10 +76,7 @@ export default function Widget({ testimonials, type }: WidgetProps) {
   }, [enterTime]);
 
   return (
-    <div
-      id="testimonials-section"
-      className="w-full bg-gray-50 dark:bg-gray-900"
-    >
+    <div id="testimonials-section" className="w-full bg-gray-50">
       {type === "wall-of-fame" ? (
         <div className="container px-6 md:px-16">
           <div className="columns-1 sm:columns-2 md:columns-3 gap-3 space-y-3">
@@ -89,10 +86,12 @@ export default function Widget({ testimonials, type }: WidgetProps) {
           </div>
         </div>
       ) : (
-        <div className="w-screen flex gap-4 overflow-x-auto">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} />
-          ))}
+        <div className="overflow-hidden">
+          <div className="w-screen flex flex-nowrap gap-6 py-16 animate-slide hover:animation-paused">
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard key={index} testimonial={testimonial} />
+            ))}
+          </div>
         </div>
       )}
     </div>
