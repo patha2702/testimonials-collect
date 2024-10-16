@@ -303,17 +303,17 @@ const Features = () => {
         />
         <FeatureCard
           title="Wall of fame"
-          description="Simply paste the embed code, and let the testimonials shine on your site effortlessly"
+          description="Simply paste the wall of fame embed code, and let the testimonials shine on your site effortlessly"
           image={{
-            src: "/assets/images/wall-of-fame-embed.png",
+            src: "/assets/images/wall-of-fame.png",
             alt: "wall of fame",
           }}
         />
         <FeatureCard
-          title="Insightful Metrics"
-          description="Track key metrics like average rating and attention time to see how your testimonials boost engagement and drive conversions."
+          title="Carousel Slider"
+          description="Simply paste the carousel slider embed code, and let the testimonials shine on your site effortlessly"
           image={{
-            src: "/assets/images/collection-page.png",
+            src: "/assets/images/carousel.png",
             alt: "collection page",
           }}
         />
@@ -365,13 +365,13 @@ const pricingList: PricingCardProps[] = [
     price: 0,
     features: [
       {
-        feature: "1 Collection",
+        feature: "Unlimited Collections",
       },
       {
         feature: "3 Custom questions",
       },
       {
-        feature: "Collection Page",
+        feature: "Hosted Collection Page",
       },
       {
         feature: "Metrics",
@@ -381,30 +381,30 @@ const pricingList: PricingCardProps[] = [
       },
     ],
   },
-  {
-    title: "Pro",
-    price: 19,
-    features: [
-      {
-        feature: "One time payment",
-      },
-      {
-        feature: "Unlimited Collections",
-      },
-      {
-        feature: "5 Custom questions",
-      },
-      {
-        feature: "Collection Page",
-      },
-      {
-        feature: "Metrics",
-      },
-      {
-        feature: "Unlimited testimonials",
-      },
-    ],
-  },
+  // {
+  //   title: "Pro",
+  //   price: 19,
+  //   features: [
+  //     {
+  //       feature: "One time payment",
+  //     },
+  //     {
+  //       feature: "Unlimited Collections",
+  //     },
+  //     {
+  //       feature: "5 Custom questions",
+  //     },
+  //     {
+  //       feature: "Collection Page",
+  //     },
+  //     {
+  //       feature: "Metrics",
+  //     },
+  //     {
+  //       feature: "Unlimited testimonials",
+  //     },
+  //   ],
+  // },
 ];
 
 const Pricing = () => {
